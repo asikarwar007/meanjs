@@ -1,0 +1,44 @@
+<section data-ng-init="find()">
+  <div class="page-header">
+    <h1>Categories</h1>
+</div>
+<!-- this is the new search input field -->
+<div class="form-group">
+    <input type="text" ng-model="search" typeahead="category as category.name for category in categories | filter:$viewValue | limitTo:8" class="form-control" typeahead-on-select="categorySearch($item)" placeholder="Search Category...">
+</div>
+<!-- end -->
+<div class="list-group">
+    <a data-ng-repeat="category in categories | limitTo: offset - categories.length | limitTo: pageSize" data-ng-href="#!/categories/{{category._id}}" class="list-group-item">
+        <h4 class="list-group-item-heading" data-ng-bind="category.name"></h4>
+        <span data-ng-bind="category.description"></span>
+    </a>
+</div>
+<!-- this is the paging control -->
+<pagination total-items="categories.length" ng-model="currentPage" ng-change="pageChanged()" max-size="pageSize" ng-show="categories.length > pageSize"></pagination>
+<!-- end -->
+<div class="alert alert-warning text-center" data-ng-hide="!categories.$resolved || categories.length">
+    No categories yet, why don't you <a href="/#!/categories/create">create one</a>?
+</div>
+
+  <!-- <div class="page-header">
+    <h1>Test2s</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="test2 in vm.test2s"
+       ui-sref="test2s.view({ test2Id: test2._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="test2.created | date:'mediumDate'"></span>
+        
+        <span ng-if="test2.user" ng-bind="test2.user.displayName"></span>
+        
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="test2.name"></h4>
+      <span data-ng-bind="test2.description"></span>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.test2s.$resolved && !vm.test2s.length">
+    No Test2s yet, why don't you <a ui-sref="test2s.create">create one</a>?
+  </div> -->
+</section>
